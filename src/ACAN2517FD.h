@@ -13,14 +13,23 @@
 #include <ACAN2517FD_CANMessage.h>
 #include <ACAN2517FDFilters.h>
 #include <SPI.h>
-
+#include "Particle.h"
 //------------------------------------------------------------------------------
 //   ACAN2517FD class
 //------------------------------------------------------------------------------
 
 class ACAN2517FD {
 
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+//   reroute SPI buffer transfer to Partcicle's SPI transfer
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+private: void mSPItransfer(uint8_t *buffer, size_t length) {
+   uint8_t* txrx = static_cast<uint8_t*>(buffer);
+   mSPI.transfer(txrx, txrx, length, nullptr);
+}
+
+  //······················································································································
   //   CONSTRUCTOR
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

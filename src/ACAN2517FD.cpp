@@ -54,6 +54,14 @@ static const uint8_t TXBWS = 0 ;
   }
 #endif
 
+#ifndef NOT_AN_INTERRUPT
+  #define NOT_AN_INTERRUPT (-1)
+#endif
+
+#ifndef LOW
+  #define LOW (FALLING)
+#endif
+
 //------------------------------------------------------------------------------
 // ACAN2517FD register addresses
 //------------------------------------------------------------------------------
@@ -552,7 +560,8 @@ bool ACAN2517FD::end (void) {
     }
   //--- Reset MCP2517FD
     assertCS () ;
-      mSPI.transfer16 (0x00) ; // Reset instruction: 0x0000
+      mSPI.transfer(0x00) ; // Reset instruction: 0x0000
+      mSPI.transfer(0x00);
     deassertCS () ;
   //--- ESP32: delete associated task
     #ifdef ARDUINO_ARCH_ESP32
@@ -692,7 +701,7 @@ void ACAN2517FD::appendInControllerTxFIFO (const CANFDMessage & inMessage) {
   }
 //--- SPI transfer
   assertCS () ;
-    mSPI.transfer (buffer, 10 + 4 * wordCount) ;
+    mSPItransfer (buffer, 10 + 4 * wordCount) ;
   deassertCS () ;
 //--- Increment FIFO, send message (see DS20005688B, page 48)
   const uint8_t data8 = (1 << 0) | (1 << 1) ; // Set UINC bit, TXREQ bit
@@ -755,7 +764,7 @@ bool ACAN2517FD::sendViaTXQ (const CANFDMessage & inMessage) {
       }
     //--- SPI transfer
       assertCS () ;
-        mSPI.transfer (buffer, 10 + 4 * wordCount) ;
+        mSPItransfer (buffer, 10 + 4 * wordCount) ;
       deassertCS () ;
     //--- Increment FIFO, send message (see DS20005688B, page 48)
       const uint8_t data8 = (1 << 0) | (1 << 1) ; // Set UINC bit, TXREQ bit
@@ -963,7 +972,7 @@ void ACAN2517FD::receiveInterrupt (void) {
   buffer [1] = readCommand & 0xFF ;
 //--- SPI transfer
   assertCS () ;
-    mSPI.transfer (buffer, 74) ;
+    mSPItransfer (buffer, 74) ;
   //--- Read identifier (see DS20005678A, page 42)
     message.id = u32FromBufferAtIndex (buffer, 2) ;
   //--- Read DLC, RTR, IDE bits, and match filter index
@@ -1025,7 +1034,7 @@ void ACAN2517FD::writeRegister32Assume_SPI_transaction (const uint16_t inRegiste
   enterU32InBufferAtIndex (inValue, buffer, 2) ;
 //--- SPI transfer
   assertCS () ;
-    mSPI.transfer (buffer, 6) ;
+    mSPItransfer(buffer, 6) ;
   deassertCS () ;
 }
 
@@ -1040,7 +1049,7 @@ void ACAN2517FD::writeRegister8Assume_SPI_transaction (const uint16_t inRegister
   buffer [1] = writeCommand & 0xFF ;
   buffer [2] = inValue ;
   assertCS () ;
-    mSPI.transfer (buffer, 3) ;
+    mSPItransfer (buffer, 3) ;
   deassertCS () ;
 }
 
@@ -1055,7 +1064,7 @@ uint32_t ACAN2517FD::readRegister32Assume_SPI_transaction (const uint16_t inRegi
   buffer [1] = readCommand & 0xFF ;
 //--- SPI transfer
   assertCS () ;
-    mSPI.transfer (buffer, 6) ;
+    mSPItransfer (buffer, 6) ;
   deassertCS () ;
 //--- Get result
   const uint32_t result = u32FromBufferAtIndex (buffer, 2) ;
@@ -1074,7 +1083,7 @@ uint16_t ACAN2517FD::readRegister16Assume_SPI_transaction (const uint16_t inRegi
   buffer [1] = readCommand & 0xFF ;
 //--- SPI transfer
   assertCS () ;
-    mSPI.transfer (buffer, 4) ;
+    mSPItransfer (buffer, 4) ;
   deassertCS () ;
 //--- Get result
   const uint16_t result = u16FromBufferAtIndex (buffer, 2) ;
@@ -1091,7 +1100,7 @@ uint8_t ACAN2517FD::readRegister8Assume_SPI_transaction (const uint16_t inRegist
   buffer [0] = readCommand >> 8;
   buffer [1] = readCommand & 0xFF;
   assertCS () ;
-    mSPI.transfer(buffer, 3) ;
+    mSPItransfer(buffer, 3) ;
   deassertCS () ;
   return buffer [2] ;
 }
@@ -1244,7 +1253,8 @@ void ACAN2517FD::reset2517FD (void) {
       noInterrupts () ;
     #endif
       assertCS () ;
-        mSPI.transfer16 (0x00) ; // Reset instruction: 0x0000
+        mSPI.transfer(0x00) ; // Reset instruction: 0x0000
+        mSPI.transfer(0x00) ;
       deassertCS () ;
     #ifdef ARDUINO_ARCH_ESP32
       taskENABLE_INTERRUPTS () ;
