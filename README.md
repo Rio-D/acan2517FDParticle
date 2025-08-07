@@ -1,5 +1,8 @@
-## MCP2517FD and MCP2518FD CAN Controller Library for Arduino (in CAN FD mode)
+## MCP2517FD and MCP2518FD CAN Controller Library for Particle 
 
+This is a port of [acan2517FD](https://github.com/pierremolinaro/acan2517FD) for Particle devices.
+
+It has been tested and working for CAN and CANFD. The original examples have not been tested yet but should work without any issues.
 
 ### Compatibility with the other ACAN libraries
 
