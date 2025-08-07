@@ -1,14 +1,10 @@
-//----------------------------------------------------------------------------------------------------------------------
-// Generic CAN Message
+//------------------------------------------------------------------------------
+// A CAN driver for MCP2517FD (CANFD mode)
 // by Pierre Molinaro
-//
-// This file is common to the following libraries
-// https://github.com/pierremolinaro/acan
-// https://github.com/pierremolinaro/acan2515
-// https://github.com/pierremolinaro/acan2517
 // https://github.com/pierremolinaro/acan2517FD
-//
-//----------------------------------------------------------------------------------------------------------------------
+// Ported for Particle by Rio-D
+// https://github.com/Rio-D/acan2517FDParticle
+//------------------------------------------------------------------------------
 
 #ifndef GENERIC_CAN_MESSAGE_DEFINED
 #define GENERIC_CAN_MESSAGE_DEFINED

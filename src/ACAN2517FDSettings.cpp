@@ -2,7 +2,8 @@
 // A CAN driver for MCP2517FD (CANFD mode)
 // by Pierre Molinaro
 // https://github.com/pierremolinaro/acan2517FD
-//
+// Ported for Particle by Rio-D
+// https://github.com/Rio-D/acan2517FDParticle
 //------------------------------------------------------------------------------
 
 #include <ACAN2517FDSettings.h>

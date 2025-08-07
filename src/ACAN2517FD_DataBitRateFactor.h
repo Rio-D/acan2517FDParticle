@@ -1,11 +1,9 @@
 //------------------------------------------------------------------------------
-// A CANFD driver
+// A CAN driver for MCP2517FD (CANFD mode)
 // by Pierre Molinaro
-
-// This header is common to libraries
-//        https://github.com/pierremolinaro/ACAN_T4
-//        https://github.com/pierremolinaro/ACAN2517FD
-//
+// https://github.com/pierremolinaro/acan2517FD
+// Ported for Particle by Rio-D
+// https://github.com/Rio-D/acan2517FDParticle
 //------------------------------------------------------------------------------
 
 #ifndef ACANFD_DATA_BIT_RATE_FACTOR_DEFINED

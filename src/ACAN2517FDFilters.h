@@ -1,9 +1,9 @@
 //------------------------------------------------------------------------------
-// An utility class for:
-//   - ACAN2517FD CAN driver for MCP2517FD (CANFD mode)
+// A CAN driver for MCP2517FD (CANFD mode)
 // by Pierre Molinaro
 // https://github.com/pierremolinaro/acan2517FD
-//
+// Ported for Particle by Rio-D
+// https://github.com/Rio-D/acan2517FDParticle
 //------------------------------------------------------------------------------
 
 #ifndef ACAN2517FD_FILTERS_CLASS_DEFINED
