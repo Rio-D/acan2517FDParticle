@@ -38,7 +38,7 @@ class CANFDMessage {
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  public : CANFDMessage (const CANMessage & inMessage) :
+  public : CANFDMessage (const ACANMessage & inMessage) :
   id (inMessage.id),  // Frame identifier
   ext (inMessage.ext), // false -> base frame, true -> extended frame
   type (inMessage.rtr ? CAN_REMOTE : CAN_DATA),

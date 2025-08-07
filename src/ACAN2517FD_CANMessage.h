@@ -1,4 +1,4 @@
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 // Generic CAN Message
 // by Pierre Molinaro
 //
@@ -8,18 +8,18 @@
 // https://github.com/pierremolinaro/acan2517
 // https://github.com/pierremolinaro/acan2517FD
 //
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 
 #ifndef GENERIC_CAN_MESSAGE_DEFINED
 #define GENERIC_CAN_MESSAGE_DEFINED
 
+//----------------------------------------------------------------------------------------------------------------------
+
+#include <Particle.h>
+
 //------------------------------------------------------------------------------
 
-#include <Arduino.h>
-
-//------------------------------------------------------------------------------
-
-class CANMessage {
+class ACANMessage {
   public : uint32_t id = 0 ;  // Frame identifier
   public : bool ext = false ; // false -> standard frame, true -> extended frame
   public : bool rtr = false ; // false -> data frame, true -> remote frame
